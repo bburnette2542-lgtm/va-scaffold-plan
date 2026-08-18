@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>The Virginia Home — Buck Scaffold Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#E4E1D8;--paper2:#EDEBE4;--ink:#16181B;--soft:#54524B;--rule:#C3BFB3;--deck:#0D5B61;--amber:#B57614;--flag:#8C2F1F}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;padding-bottom:4rem}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1rem}
+.mast{border-bottom:2px solid var(--ink);padding:1.6rem 0 .9rem;margin-bottom:1rem}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--soft);margin-bottom:.5rem}
+h1{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:clamp(2rem,8vw,3.6rem);line-height:.92;text-transform:uppercase}
+h1 span{display:block;color:var(--soft);font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:.3rem 1.4rem;margin-top:.8rem;font-family:"IBM Plex Mono",monospace;font-size:.65rem;color:var(--soft)}
+h2{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:1.3rem;letter-spacing:.04em;border-bottom:1px solid var(--ink);padding-bottom:.25rem;margin:2.2rem 0 1rem}
+h3{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:1.02rem;letter-spacing:.03em;margin:.2rem 0 .4rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.2rem 0 .7rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .85rem;border:1.5px solid var(--rule);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s}
+.chip small{display:block;font-family:"IBM Plex Mono",monospace;font-size:.55rem;font-weight:500;color:var(--soft);letter-spacing:.05em}
+.chip.on{border-color:var(--deck);background:var(--deck);color:#fff}
+.chip.on small{color:#CFE3E4}
+.viewer{position:relative;border:1px solid var(--rule);background:linear-gradient(#EFEDE6,#E4E1D8);height:min(58vh,520px);touch-action:none}
+#c3d{width:100%;height:100%;display:block}
+.hud{position:absolute;left:.8rem;top:.7rem;pointer-events:none}
+.hud .zid{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:3rem;line-height:.8;color:var(--deck)}
+.hud .zttl{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.1rem;text-transform:uppercase;line-height:1.05;max-width:11rem}
+.hud .zsub{font-family:"IBM Plex Mono",monospace;font-size:.6rem;color:var(--soft);margin-top:.2rem}
+.hint{position:absolute;right:.8rem;bottom:.6rem;font-family:"IBM Plex Mono",monospace;font-size:.58rem;color:var(--soft);pointer-events:none}
+.badge{position:absolute;right:.8rem;top:.7rem;font-family:"IBM Plex Mono",monospace;font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .55rem;border:1.5px solid}
+.b-ok{color:var(--deck);border-color:var(--deck)}.b-warn{color:var(--amber);border-color:var(--amber)}.b-stop{color:var(--flag);border-color:var(--flag);background:rgba(140,47,31,.08)}
+.card{border:1px solid var(--rule);border-top:none;background:var(--paper2);padding:1rem 1.1rem}
+.spec{font-family:"IBM Plex Mono",monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);border-bottom:1px solid var(--rule);padding-bottom:.45rem;margin-bottom:.6rem}
+.spec b{color:var(--ink);font-weight:600}
+.card p{font-size:.87rem}
+.qty{width:100%;border-collapse:collapse;font-size:.8rem}
+.qty th{font-family:"IBM Plex Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--soft);text-align:right;padding:.4rem .5rem;border-bottom:1.5px solid var(--ink)}
+.qty th:first-child{text-align:left}
+.qty td{padding:.42rem .5rem;border-bottom:1px solid var(--rule);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:.74rem}
+.qty td:first-child{text-align:left;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:.95rem;text-transform:uppercase}
+.qty tr.tot td{border-top:2px solid var(--ink);border-bottom:none;font-weight:600;color:var(--deck)}
+.qty td.est{color:var(--amber)}
+.mapbox{border:1px solid var(--rule);background:var(--paper2);padding:1rem .6rem .4rem}
+.mapbox svg{width:100%;height:auto;display:block}
+.mapnote{font-family:"IBM Plex Mono",monospace;font-size:.58rem;color:var(--soft);text-align:center;padding:.4rem 0 .5rem}
+.zdot{cursor:pointer}
+.zdot circle{fill:var(--paper);stroke:var(--deck);stroke-width:1.5;transition:all .15s}
+.zdot text{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;fill:var(--deck);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.zdot.on circle{fill:var(--deck)}
+.zdot.on text{fill:#fff}
+.dim{font:500 7px 'IBM Plex Mono',monospace;fill:#54524B;text-anchor:middle}
+.dimb{font:600 9px 'IBM Plex Mono',monospace;fill:#16181B;text-anchor:middle}
+.lab{font:600 6.5px 'IBM Plex Mono',monospace;fill:#16181B}
+.laba{font:600 6.5px 'IBM Plex Mono',monospace;fill:#B57614}
+.labr{font:600 6.5px 'IBM Plex Mono',monospace;fill:#8C2F1F}
+.scafA{stroke:#0D5B61;stroke-width:2.5;fill:none;stroke-dasharray:6 3}
+.scafD{stroke:#8C2F1F;stroke-width:2.5;fill:none;stroke-dasharray:6 3}
+.scafB{stroke:#B57614;stroke-width:3.5;fill:none}
+.dets{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.det{border:1px solid var(--rule);background:var(--paper2);padding:.8rem .8rem .5rem}
+.det svg{width:100%;height:auto;display:block}
+.det p{font-size:.78rem;padding:.5rem .1rem .3rem}
+.seq{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:1px solid var(--rule)}
+.seq div{padding:.8rem .9rem;border-right:1px solid var(--rule);background:var(--paper2)}
+.seq div:last-child{border-right:none}
+.seq b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:.95rem}
+.seq i{font-family:"IBM Plex Mono",monospace;font-size:.58rem;color:var(--soft);font-style:normal;display:block;margin-bottom:.35rem}
+.seq p{font-size:.78rem}
+.note{border-left:3px solid var(--amber);background:var(--paper2);padding:.75rem .95rem;margin-top:1rem;font-size:.83rem;max-width:70ch}
+ul{list-style:none}
+li{padding:.45rem 0 .45rem 1.1rem;border-bottom:1px solid var(--rule);position:relative;font-size:.85rem}
+li::before{content:"";position:absolute;left:0;top:1em;width:8px;height:1px;background:var(--soft)}
+footer{margin-top:3rem;padding-top:1rem;border-top:2px solid var(--ink);font-family:"IBM Plex Mono",monospace;font-size:.62rem;color:var(--soft)}
+.legend{display:flex;flex-wrap:wrap;gap:.9rem;font-family:"IBM Plex Mono",monospace;font-size:.6rem;color:var(--soft);padding:.5rem .4rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.sw{display:inline-block;width:20px;height:0;border-top:2.5px dashed var(--deck)}
+.sw.d{border-color:var(--flag)}
+.sw.b{border-top-style:solid;border-top-width:3.5px;border-color:var(--amber)}
+.modes{position:absolute;left:.8rem;bottom:.6rem;display:flex;pointer-events:auto;z-index:2}
+.modes button{font-family:"IBM Plex Mono",monospace;font-size:.55rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.3rem .55rem;border:1.5px solid var(--rule);background:var(--paper2);color:var(--soft);cursor:pointer}
+.modes button+button{border-left:none}
+.modes button.on{border-color:var(--deck);background:var(--deck);color:#fff}
+.spec .camp{font-size:.6rem;opacity:.72;letter-spacing:.04em}
+.spec .camp b{color:var(--ink);font-weight:600}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+<div class="eyebrow">James River Exteriors · J10578.000-0015 · Scopes 04A / 07B / 07C</div>
+<h1>Buck Scaffold Plan<span>The Virginia Home</span></h1>
+<div class="meta"><div><b>REV H</b> — corner &amp; return details · zones A/B/C bracketed</div><div>5′-0″ buck lifts · 2–3′ soffit overhangs at A/B/C</div><div>EIFS: soffit · fascia · frieze · columns</div><div>Planning doc — not an erection drawing</div></div>
+</header>
+
+<div class="chips" id="chips" role="tablist" aria-label="Scaffold zones"></div>
+
+<div class="viewer">
+<canvas id="c3d"></canvas>
+<div class="hud"><div class="zid" id="hz"></div><div class="zttl" id="ht"></div><div class="zsub" id="hs"></div></div>
+<div class="badge" id="hb"></div>
+<div class="modes" id="modes" role="group" aria-label="Model view">
+<button type="button" data-m="work" class="on">Working set</button>
+<button type="button" data-m="bay">One bay</button>
+</div>
+<div class="hint">drag to orbit · pinch to zoom</div>
+</div>
+<div class="card"><div class="spec" id="cs"></div><p id="cb"></p></div>
+
+<h2>The bracket move — up the wall and over</h2>
+<div class="note" style="margin-top:0">Zones A, B and C all carry 2–3′ soffit overhangs — field walls, gable rakes and dormers alike. The overhang forces the frame line <b>outside the drip line</b>: frames set ~3′-6″ to 4′ off the wall face, <b>side brackets carry the lower decks back to the wall</b> for girt, Hardie and wainscot work, and the top deck rides the frame line under the soffit for the EIFS overhead. One standing setup, every work plane, no re-set between passes.</div>
+
+<h2>Corner &amp; return details — plan view</h2>
+<div class="dets">
+
+<div class="det">
+<h3>1 · Outside corner</h3>
+<svg viewBox="0 0 220 200">
+<path d="M0 0 H220 V200 H150 V60 H0 Z" fill="#CEC7B6" stroke="#8A867B" stroke-width="1.5"/>
+<path d="M0 78 H168 V200" stroke="#54524B" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<rect x="0" y="81" width="186" height="30" fill="#0D5B61" opacity=".18"/>
+<rect x="99" y="111" width="30" height="89" fill="#0D5B61" opacity=".18"/>
+<rect x="99" y="111" width="87" height="14" fill="#0D5B61" opacity=".38"/>
+<rect x="0" y="67" width="168" height="14" fill="#B57614" opacity=".45"/>
+<rect x="129" y="111" width="14" height="89" fill="#B57614" opacity=".45"/>
+<g fill="#16181B">
+<rect x="5" y="79" width="4" height="4"/><rect x="47" y="79" width="4" height="4"/><rect x="89" y="79" width="4" height="4"/><rect x="131" y="79" width="4" height="4"/><rect x="173" y="79" width="4" height="4"/>
+<rect x="5" y="109" width="4" height="4"/><rect x="47" y="109" width="4" height="4"/><rect x="89" y="109" width="4" height="4"/><rect x="131" y="109" width="4" height="4"/><rect x="173" y="109" width="4" height="4"/>
+<rect x="97" y="130" width="4" height="4"/><rect x="127" y="130" width="4" height="4"/>
+<rect x="97" y="165" width="4" height="4"/><rect x="127" y="165" width="4" height="4"/>
+<rect x="97" y="194" width="4" height="4"/><rect x="127" y="194" width="4" height="4"/>
+</g>
+<path d="M186 81 V111 H129 M99 111 V200" stroke="#16181B" stroke-width="2.2" fill="none"/>
+<path d="M0 111 H99" stroke="#16181B" stroke-width="2.2"/>
+<text class="lab" x="6" y="96">RUN 1 — CARRIES 1 BAY PAST CORNER</text>
+<text class="lab" x="38" y="140" transform="rotate(90 38 140)" text-anchor="start" x="104"></text>
+<text class="lab" x="104" y="140" transform="rotate(90 104 140)">RUN 2 — BUTTS TO RUN 1</text>
+<text class="laba" x="6" y="64">BRACKETS — ≤14″ TO WALL</text>
+<text class="lab" x="100" y="122" style="fill:#0D5B61">INFILL PLANKS — LAP &amp; CLEAT</text>
+<text class="dim" x="184" y="73" text-anchor="end">DRIP LINE</text>
+<text class="dim" x="196" y="96" transform="rotate(90 196 96)">GUARDRAIL WRAPS</text>
+</svg>
+<p><b>Run 1 carries through</b> one bay past the corner; Run 2 butts to it. Bracket decks on both legs hold ≤14″ to each face and wrap the corner. The notch between runs closes with lapped, cleated infill planks at every deck level. Guardrail is continuous around the outside.</p>
+</div>
+
+<div class="det">
+<h3>2 · Inside corner (courtyards)</h3>
+<svg viewBox="0 0 220 200">
+<path d="M0 44 H160 V200 H150 V60 H0 Z" fill="#CEC7B6" stroke="#8A867B" stroke-width="1.5"/>
+<path d="M0 78 H132 V200" stroke="#54524B" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<rect x="0" y="81" width="93" height="30" fill="#0D5B61" opacity=".18"/>
+<rect x="99" y="88" width="30" height="112" fill="#0D5B61" opacity=".18"/>
+<rect x="0" y="67" width="143" height="14" fill="#B57614" opacity=".45"/>
+<rect x="129" y="81" width="14" height="119" fill="#B57614" opacity=".45"/>
+<rect x="93" y="81" width="36" height="30" fill="#B57614" opacity=".25"/>
+<g fill="#16181B">
+<rect x="5" y="79" width="4" height="4"/><rect x="45" y="79" width="4" height="4"/><rect x="87" y="79" width="4" height="4"/>
+<rect x="5" y="109" width="4" height="4"/><rect x="45" y="109" width="4" height="4"/><rect x="87" y="109" width="4" height="4"/>
+<rect x="97" y="90" width="4" height="4"/><rect x="127" y="90" width="4" height="4"/>
+<rect x="97" y="130" width="4" height="4"/><rect x="127" y="130" width="4" height="4"/>
+<rect x="97" y="170" width="4" height="4"/><rect x="127" y="170" width="4" height="4"/>
+</g>
+<path d="M0 111 H93 M99 111 V200" stroke="#16181B" stroke-width="2.2" fill="none"/>
+<text class="lab" x="6" y="96">RUN 1 — STOPS CLEAR OF RUN 2</text>
+<text class="lab" x="104" y="125" transform="rotate(90 104 125)">RUN 2 — RUNS INTO POCKET</text>
+<text class="laba" x="6" y="64">BRACKET DECKS TURN THE CORNER</text>
+<text class="laba" x="70" y="100">POCKET INFILL</text>
+<text class="dim" x="60" y="52">WALL · COURTYARD FACE</text>
+</svg>
+<p><b>The bracket decks are what turn the inside corner</b> — they run tight to both faces and meet at the corner. The frame runs themselves stop clear of each other; the pocket between them at frame-line depth gets bracket-supported infill. On 916 LF of courtyard wall this detail repeats at 16 corners.</p>
+</div>
+
+<div class="det">
+<h3>3 · 2′-8″ return — run does not jog</h3>
+<svg viewBox="0 0 240 190">
+<path d="M0 0 H240 V54 H120 V70 H0 Z" fill="#CEC7B6" stroke="#8A867B" stroke-width="1.5"/>
+<path d="M0 88 H138 V72 H240" stroke="#54524B" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<rect x="0" y="91" width="240" height="30" fill="#0D5B61" opacity=".18"/>
+<rect x="0" y="77" width="120" height="14" fill="#B57614" opacity=".45"/>
+<rect x="120" y="77" width="120" height="14" fill="#B57614" opacity=".45"/>
+<g fill="#16181B">
+<rect x="8" y="89" width="4" height="4"/><rect x="50" y="89" width="4" height="4"/><rect x="92" y="89" width="4" height="4"/><rect x="134" y="89" width="4" height="4"/><rect x="176" y="89" width="4" height="4"/><rect x="218" y="89" width="4" height="4"/>
+<rect x="8" y="119" width="4" height="4"/><rect x="50" y="119" width="4" height="4"/><rect x="92" y="119" width="4" height="4"/><rect x="134" y="119" width="4" height="4"/><rect x="176" y="119" width="4" height="4"/><rect x="218" y="119" width="4" height="4"/>
+</g>
+<path d="M120 77 H240" stroke="#8C2F1F" stroke-width="2.4"/>
+<path d="M0 121 H240" stroke="#16181B" stroke-width="2.2"/>
+<path d="M112 54 V70" stroke="#16181B" stroke-width="1"/>
+<text class="dim" x="104" y="64" text-anchor="end">2′-8″</text>
+<text class="lab" x="6" y="104">FRAME LINE HELD STRAIGHT OFF PROUD DRIP LINE</text>
+<text class="laba" x="6" y="74">BRACKETS ≤14″ AT PROUD FACE</text>
+<text class="labr" x="126" y="68">INSIDE RAIL — GAP >14″ AT RECESS</text>
+<text class="lab" x="126" y="48">RETURN + RECESS FACE WORKED FROM NOTCH DECK</text>
+</svg>
+<p><b>Never jog a buck run 2′-8″.</b> Hold the frame line straight off the proud drip line. At the proud face, brackets hold ≤14″. At the recess the bracket deck sits ~3′-8″ off the wall — that segment gets an <b>inside guardrail</b>, and the 2′-8″ return face plus the recessed run are worked from the notch deck at arm's reach. The resident buildings repeat this at every projecting bay — dozens of returns per building.</p>
+</div>
+</div>
+
+<h2>Floor plan — resident building (typ. of 2)</h2>
+<div class="mapbox">
+<svg viewBox="0 0 320 300" aria-label="Resident building scaffold plan">
+<g transform="translate(32,34) scale(1.1)">
+<path d="M-8 30 h8 v-30 h215.4 v30 h8 v25 h-8 v100 h8 v25 h-8 v30 h-215.4 v-30 h-8 v-25 h8 v-100 h-8 z" fill="#DAD6CA" stroke="#8A867B" stroke-width="1.6"/>
+<rect x="40" y="36" width="65.3" height="49.2" fill="#EDEBE4" stroke="#8A867B" stroke-width="1.4"/>
+<rect x="40" y="124" width="65.3" height="49.2" fill="#EDEBE4" stroke="#8A867B" stroke-width="1.4"/>
+<rect x="120" y="36" width="65.3" height="49.2" fill="#EDEBE4" stroke="#8A867B" stroke-width="1.4"/>
+<rect x="120" y="124" width="65.3" height="49.2" fill="#EDEBE4" stroke="#8A867B" stroke-width="1.4"/>
+<path class="scafA" d="M-14 30 h8 v-36 h227.4 v36 h8 v127.2 M-14 57 v100"/>
+<path class="scafA" d="M-14 182 h8 v36 h227.4 v-36 h8"/>
+<rect x="44" y="40" width="57.3" height="41.2" class="scafD"/>
+<rect x="44" y="128" width="57.3" height="41.2" class="scafD"/>
+<rect x="124" y="40" width="57.3" height="41.2" class="scafD"/>
+<rect x="124" y="128" width="57.3" height="41.2" class="scafD"/>
+<path class="scafB" d="M-8 22 v16 M223.4 22 v16 M-8 171 v16 M223.4 171 v16"/>
+<text class="dimb" x="107.7" y="-8">215′-5″ (+8′-6″ wings)</text>
+<text class="dimb" x="-22" y="105" transform="rotate(-90 -22 105)">209′-10″</text>
+<text class="dim" x="72.6" y="63">49′-2″×65′-4″</text>
+<text class="dim" x="72.6" y="151">49′-2″×65′-4″</text>
+<text class="dim" x="152.6" y="63">49′-2″×65′-4″</text>
+<text class="dim" x="152.6" y="151">49′-2″×65′-4″</text>
+<text class="dim" x="107.7" y="108">CONNECTOR · CORRIDOR BTWN COURTYARDS</text>
+</g>
+</svg>
+<div class="legend"><span><i class="sw"></i>Zone A — exterior run, 3 lifts + brackets</span><span><i class="sw d"></i>Zone D — courtyard run, crane/hand-carry</span><span><i class="sw b"></i>Zone B — gable bays, 5 lifts + outriggers + rake brackets</span></div>
+<div class="mapnote">Dimensions extracted from A113 · bay articulation simplified — see Detail 3 for how returns are run · building B shown, A mirrors</div>
+</div>
+
+<h2>Quantities — planning grade</h2>
+<table class="qty">
+<tr><th>Zone</th><th>Wall LF</th><th>Lifts</th><th>Buck frames</th><th>Deck SF</th></tr>
+<tbody id="qb"></tbody>
+</table>
+<div class="note"><b>What's measured vs estimated.</b> Envelope dimensions are extracted from the Pricing Set floor plans. Amber quantities are estimates pending elevation-by-elevation assignment. Frames at 7′ bays, decks at 5′ width. <b>Brackets now ride zones A/B/C/D/E/G</b> — roughly one pair per frame per bracketed level — and the bay returns add pairs beyond that at every jog. Count brackets against yard inventory like the frames. Not a bid quantity.</div>
+
+<h2>Campus zones</h2>
+<div class="mapbox">
+<svg viewBox="0 0 640 280" id="map" aria-label="Schematic campus map">
+<g fill="none" stroke="#8A867B" stroke-width="2">
+<path d="M40 40 h150 v200 h-150 z M75 75 h80 v55 h-80 z M75 150 h80 v55 h-80 z" fill="#DAD6CA" fill-rule="evenodd"/>
+<path d="M450 40 h150 v200 h-150 z M485 75 h80 v55 h-80 z M485 150 h80 v55 h-80 z" fill="#DAD6CA" fill-rule="evenodd"/>
+<path d="M240 70 h160 v140 h-160 z" fill="#DAD6CA"/>
+<path d="M285 210 h70 v26 h-70" fill="#DAD6CA"/>
+<path d="M190 130 h50 M400 130 h50" stroke-dasharray="5 4"/>
+</g>
+<text x="115" y="32" text-anchor="middle" style="font:600 11px 'IBM Plex Mono',monospace;fill:#54524B">RESIDENT BLDG A</text>
+<text x="525" y="32" text-anchor="middle" style="font:600 11px 'IBM Plex Mono',monospace;fill:#54524B">RESIDENT BLDG B</text>
+<text x="320" y="62" text-anchor="middle" style="font:600 11px 'IBM Plex Mono',monospace;fill:#54524B">MAIN BLDG</text>
+<text x="320" y="254" text-anchor="middle" style="font:500 9px 'IBM Plex Mono',monospace;fill:#54524B">PORTE COCHERE</text>
+<g id="mapdots"></g>
+</svg>
+<div class="mapnote">Tap a marker to load that zone in the model.</div>
+</div>
+
+<h2>Sequence — why the scaffold stands</h2>
+<div class="seq">
+<div><b>Board</b><i>Pass 1</i><p>EIFS board set. Scaffold stays.</p></div>
+<div><b>Base &amp; mesh</b><i>Pass 2</i><p>Basecoat, mesh, cure. Scaffold stays.</p></div>
+<div><b>Girts &amp; siding</b><i>Pass 3</i><p>Off the bracket decks. Scaffold stays.</p></div>
+<div><b>Finish</b><i>Pass 4</i><p>Last — nothing installs under it.</p></div>
+</div>
+
+<h2>Standing requirements</h2>
+<ul>
+<li><b>Frame line outboard of the drip line</b> at zones A/B/C/D/E/G; side brackets at lower decks; top deck at frame line under the soffit. Brackets go on with the frames — not retrofitted after decking.</li>
+<li><b>Corners per Details 1–3</b> — run-through at outside corners, bracket-turn at inside corners, straight line past 2′-8″ returns with inside rail at recesses.</li>
+<li><b>4:1</b> height to least base dimension. Outriggers before ties everywhere except Zone F.</li>
+<li><b>Guardrails and toeboards</b> at every deck over 10′ — bracket decks included.</li>
+<li><b>Screw jacks and mudsills</b> throughout — grade moves on nearly every elevation.</li>
+<li><b>Ties penetrate</b> the fluid-applied AV barrier and 3″ polyiso; every one avoided is a detail you don't seal and warrant.</li>
+<li><b>High-impact mesh</b> on courtyard columns; <b>courtyard slab is a finish surface</b> — protection and mud control.</li>
+</ul>
+
+<h2>Open items</h2>
+<ul>
+<li><b>Zone splits</b> — assign dormer count and dock/pool runs from elevations to firm the amber quantities.</li>
+<li><b>Structural</b> — confirm the ≈28′ main gable peak; get the Zone F engineered erection drawing.</li>
+<li><b>Site logistics</b> — crane windows before connectors close; 916 LF of courtyard wall rides on it.</li>
+</ul>
+
+<footer>Sources: A110-A116 floor/roof plans (dims extracted) · A201-A/B · A202-A/C · A203 · A311-313 · A315-317 · A601 · Prepared for Brian Burnette, James River Exteriors</footer>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+
+const Z=[
+{id:'A',ttl:'Resident buildings',sub:'Exterior walls · both bldgs',wall:12.17,wl:'12′-2″ brg',decks:[5,10],ov:15,ratio:'3:1',flag:'ok',ft:'Brackets · no outriggers',gable:false,out:false,eave:true,lf:1701,fr:732,dsf:17010,est:false,
+body:'Three bucks, frame line ~4′ off the wall to clear the 2–3′ soffit. Side brackets carry the 5′ deck back to the wall for wainscot, girts and Hardie; the 10′ deck rides the frame line under the soffit for the EIFS overhead. One setup, every work plane.'},
+{id:'B',ttl:'Resident gables',sub:'7:12 rake · 2–3′ rake overhang',wall:21.5,wl:'≈21′-6″ pk',decks:[5,10,15,20],ov:25,ratio:'5:1',flag:'warn',ft:'Outriggers + rake brackets',gable:true,brg:12.17,out:true,eave:true,lf:280,fr:205,dsf:5600,est:true,
+body:'Five bucks stepped up the rake, ~8 gable bays across both buildings. The rake soffit overhangs 2–3′ same as the eaves — frame line sets outboard of the raking drip line, brackets close the gap at every deck. Land the 15′ deck at the attic vent louver.'},
+{id:'C',ttl:'Dormers',sub:'Vent · roof · shed · 2–3′ overhang',wall:17,wl:'≈17′',decks:[5,10,15],ov:20,ratio:'4:1',flag:'warn',ft:'At the limit · brackets',gable:false,out:true,eave:true,lf:168,fr:100,dsf:2520,est:true,
+body:'Dedicated tower each — never off the shingle roof. Dormer overhangs force the tower face out and brackets back in, same as the field. The 66″×48″ Greenheck louver and its sill pan flashing need a real staging surface. Count is an estimate.'},
+{id:'D',ttl:'Courtyards ×4',sub:'49′×65′ inside · no vehicle access',wall:12.17,wl:'12′-2″ brg',decks:[5,10],ov:15,ratio:'3:1',flag:'stop',ft:'Access = cost driver',gable:false,out:false,eave:true,lf:916,fr:396,dsf:9160,est:false,
+body:'229 LF interior perimeter per courtyard — 916 LF total, every foot hand-carried or craned in, bracket config as Zone A, 16 inside corners per Detail 2. Canopy ceilings at 10′-6″ take a single 5′ deck under rolling towers. Crane-in before connectors close should win decisively.'},
+{id:'E',ttl:'Main building',sub:'Typical walls',wall:15,wl:'15′-0″ brg',decks:[5,10],ov:15,ratio:'3:1',flag:'ok',ft:'Brackets · no outriggers',gable:false,out:false,eave:true,lf:426,fr:186,dsf:4260,est:true,
+body:'Three bucks, bracket config as Zone A. Governing quadrant runs 156′-8″ / 135′ / 123′-11″ / 105′-4″ extracted from A112 — the split against zones F–H is still estimated.'},
+{id:'F',ttl:'Main central gable',sub:'Tallest condition',wall:28.33,wl:'≈28′-4″ pk',decks:[5,10,15,20,25],ov:30,ratio:'6:1',flag:'stop',ft:'Engineered dwg required',gable:true,brg:15,out:true,eave:false,lf:46,fr:48,dsf:1150,est:false,
+body:'Six bucks over a 45′-8″ span. Outriggers alone are unlikely to carry 30′ on a 5′ base — if ties are required, locate and detail them before the AV barrier submittal closes. The one zone not to call in the field.'},
+{id:'G',ttl:'Pool / natatorium',sub:'20′-0″ truss bearing',wall:20,wl:'20′-0″ brg',decks:[5,10,15],ov:25,ratio:'5:1',flag:'warn',ft:'Widen base to 8′',gable:false,out:true,eave:true,lf:60,fr:50,dsf:900,est:true,
+body:'Five bucks, brackets at the lower decks, outrigger base widened to ~8′ — near 3:1, keeps you out of the AV barrier and polyiso entirely.'},
+{id:'H',ttl:'Loading dock',sub:'6′-0″ retaining wall below',wall:21,wl:'≈21′ eff.',decks:[5,10,15,20],ov:25,ratio:'5:1',flag:'warn',ft:'Stepped setup',gable:false,out:true,eave:false,step:6,lf:55,fr:45,dsf:1100,est:true,
+body:'Effective height from the lower apron. Found on lower grade and bridge a deck at dock level, or step it. Active dock — get availability windows from Gilbane.'},
+{id:'I',ttl:'Canopies & porches',sub:'Porte cochere · balcony',wall:15,wl:'to 15′',decks:[5,10],ov:15,ratio:'3:1',flag:'warn',ft:'Phased access',gable:false,out:false,eave:false,lf:90,fr:42,dsf:900,est:true,
+body:'Rolling towers, overhead work. Porte cochere likely stays passable — phase it or work off-hours. EIFS column wraps run ground-to-overhead; the Great Hall balcony obstructs the wall beneath it.'},
+{id:'J',ttl:'Equipment yards',sub:'Chiller · generator · mech',wall:15,wl:'to 15′',decks:[5,10],ov:15,ratio:'3:1',flag:'warn',ft:'Confirm equip. timing',gable:false,out:false,eave:false,lf:70,fr:33,dsf:700,est:true,
+body:'Rolling towers staged around equipment. If units set before skin, these elevations get materially harder — price them that way.'}
+];
+
+const qb=document.getElementById('qb');
+let TL=0,TF=0,TD=0;
+Z.forEach(z=>{TL+=z.lf;TF+=z.fr;TD+=z.dsf;const tr=document.createElement('tr');tr.innerHTML='<td>'+z.id+' — '+z.ttl+'</td><td class="'+(z.est?'est':'')+'">'+z.lf.toLocaleString()+'</td><td>'+(z.ov/5)+'</td><td class="'+(z.est?'est':'')+'">'+z.fr.toLocaleString()+'</td><td class="'+(z.est?'est':'')+'">'+z.dsf.toLocaleString()+'</td>';qb.appendChild(tr)});
+const tt=document.createElement('tr');tt.className='tot';tt.innerHTML='<td>TOTAL</td><td>'+TL.toLocaleString()+'</td><td>—</td><td>'+TF.toLocaleString()+'</td><td>'+TD.toLocaleString()+'</td>';qb.appendChild(tt);
+
+const canvas=document.getElementById('c3d');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(42,2,.1,2000);
+const ctl=new OrbitControls(cam,canvas);
+ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.maxPolarAngle=Math.PI*.52;ctl.minDistance=15;ctl.maxDistance=520;
+scene.add(new THREE.HemisphereLight(0xfffdf5,0x9a968a,1.05));
+const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(-30,55,40);scene.add(sun);
+const ground=new THREE.Mesh(new THREE.CircleGeometry(220,64),new THREE.MeshLambertMaterial({color:0xD6D2C4}));
+ground.rotation.x=-Math.PI/2;scene.add(ground);
+const grid=new THREE.GridHelper(400,40,0xB8B4A6,0xC8C4B6);grid.position.y=.02;scene.add(grid);
+const matWall=new THREE.MeshLambertMaterial({color:0xCEC7B6});
+const matSoffit=new THREE.MeshLambertMaterial({color:0xBAB2A0});
+const matSteel=new THREE.MeshLambertMaterial({color:0x716D63});
+const matDeck=new THREE.MeshLambertMaterial({color:0x0D5B61});
+const matOut=new THREE.MeshLambertMaterial({color:0xB57614});
+const matSteelG=new THREE.MeshLambertMaterial({color:0xB57614,transparent:true,opacity:.45});
+const matDeckG=new THREE.MeshLambertMaterial({color:0xB57614,transparent:true,opacity:.45});
+const matOutG=new THREE.MeshLambertMaterial({color:0xC4923A,transparent:true,opacity:.32});
+let g=null,anim=[],viewMode='work';
+function lbl(t,col,sc){
+const c=document.createElement('canvas');c.width=512;c.height=128;
+const x=c.getContext('2d');
+let fs=56;x.textAlign='center';x.textBaseline='middle';
+x.font='700 '+fs+'px IBM Plex Mono,monospace';
+while(fs>28&&x.measureText(t).width>468){fs-=2;x.font='700 '+fs+'px IBM Plex Mono,monospace';}
+const tw=x.measureText(t).width,bw=Math.min(504,tw+40),bh=Math.min(112,fs+40);
+const bx=(512-bw)/2,by=(128-bh)/2,r=14;
+x.beginPath();x.moveTo(bx+r,by);x.arcTo(bx+bw,by,bx+bw,by+bh,r);x.arcTo(bx+bw,by+bh,bx,by+bh,r);x.arcTo(bx,by+bh,bx,by,r);x.arcTo(bx,by,bx+bw,by,r);x.closePath();
+x.fillStyle='rgba(237,235,228,.9)';x.fill();
+x.fillStyle=col||'#0D5B61';x.fillText(t,256,66);
+const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false,depthWrite:false}));
+const w=sc||(viewMode==='work'?24:14);
+s.scale.set(w,w*0.25,1);return s}
+function box(w,h,d,m){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m)}
+function addBayRun(lift,bays,x0,bw,depth,z0,mat,skipFirst){
+for(let i=(skipFirst?1:0);i<=bays;i++){
+const x=x0+i*bw;
+for(const zz of[z0,z0+depth]){const p=box(.28,5,.28,mat);p.position.set(x,2.5,zz);lift.add(p)}
+const lg=box(.22,.22,depth,mat);lg.position.set(x,5,z0+depth/2);lift.add(lg);
+if(i<bays){const br=box(Math.hypot(bw,5),.16,.16,mat);br.position.set(x+bw/2,2.5,z0+depth+.15);br.rotation.z=Math.atan2(5,bw);lift.add(br);
+const b2=br.clone();b2.rotation.z=-Math.atan2(5,bw);lift.add(b2)}}
+const run1=box(bays*bw,.16,.16,mat);run1.position.set(x0+bays*bw/2,5,z0);lift.add(run1);
+const run2=run1.clone();run2.position.z=z0+depth;lift.add(run2);
+}
+function addDecks(z,bays,x0,bw,depth,z0,base,topDeck,deckMat,brMat,delay,kind){
+const xMid=x0+bays*bw/2,len=bays*bw;
+for(const d of z.decks){
+const pl=box(len+.6,.3,depth-0.6,deckMat);pl.position.set(xMid,d+base,z0+depth/2);pl.scale.x=.001;pl.userData.d=delay+d*40;pl.userData.kind='deck';g.add(pl);anim.push(pl);
+if(z.eave&&d<topDeck){
+const bk=box(len+.6,.3,z0-.9,brMat);bk.position.set(xMid,d+base,(z0+.9)/2);bk.scale.x=.001;bk.userData.d=delay+150+d*40;bk.userData.kind='deck';g.add(bk);anim.push(bk);
+for(let i=0;i<=bays;i++){const x=x0+i*bw;const kb=box(.2,.2,Math.hypot(z0-.9,2.2),brMat);kb.position.set(x,d+base-1.1,(z0+.9)/2);kb.rotation.x=Math.atan2(2.2,z0-.9);g.add(kb)}
+}}
+}
+function build(z){
+if(g)scene.remove(g);g=new THREE.Group();anim=[];
+const work=viewMode==='work';
+const baysR=work?16:3,baysG=work?16:0,bw=7,depth=5,lifts=z.ov/5,base=z.step||0;
+const runW=(baysR+baysG)*bw;
+const W=work?runW+8:28;
+const xR0=work?-runW/2:-baysR*bw/2;
+const xG0=xR0+baysR*bw;
+const xRmid=xR0+baysR*bw/2;
+const xGmid=xG0+baysG*bw/2;
+let wallMesh;
+if(!work&&z.gable){const s=new THREE.Shape();s.moveTo(-W/2,0);s.lineTo(W/2,0);s.lineTo(W/2,z.brg);s.lineTo(0,z.wall);s.lineTo(-W/2,z.brg);s.closePath();wallMesh=new THREE.Mesh(new THREE.ExtrudeGeometry(s,{depth:.6,bevelEnabled:false}),matWall);wallMesh.position.z=-.6;wallMesh.position.y=base}
+else{wallMesh=box(W,z.wall,.6,matWall);wallMesh.position.y=z.wall/2+base;wallMesh.position.z=-.3}
+g.add(wallMesh);
+const z0=z.eave?4.2:(1.5+(base>0?4:0));
+const frontZ=z0+depth+8;
+if(z.eave){
+if(!work&&z.gable){const ang=Math.atan2(z.wall-z.brg,W/2),len=Math.hypot(W/2,z.wall-z.brg)+1.6;
+for(const s of[-1,1]){const r=box(len,.5,3.2,matSoffit);r.position.set(s*W/4,base+(z.brg+z.wall)/2+.45,1.3);r.rotation.z=-s*ang;g.add(r)}
+const sl=lbl('RAKE O.H.','#54524B');sl.position.set(0,(z.brg+z.wall)/2+base+3.2,frontZ);g.add(sl)}
+else if(z.eave){const sof=box(W,.55,3.2,matSoffit);sof.position.set(0,z.wall+base+.27,1.3);g.add(sof);
+const fas=box(W,1.1,.3,matSoffit);fas.position.set(0,z.wall+base+.55,2.9);g.add(fas);
+const sl=lbl('2–3′ SOFFIT','#54524B',work?24:14);sl.position.set(0,z.wall+base+8.6,frontZ+2);g.add(sl)}}
+if(base>0){const r=box(W+8,base,3,new THREE.MeshLambertMaterial({color:0xB3AC99}));r.position.set(0,base/2,2);g.add(r)}
+const wm=lbl(z.wl);wm.position.set(xRmid,z.wall+base+5.4,frontZ+1);g.add(wm);
+const topDeck=Math.max(...z.decks);
+for(let L=0;L<lifts;L++){
+const liftR=new THREE.Group();
+addBayRun(liftR,baysR,xR0,bw,depth,z0,matSteel,false);
+liftR.position.y=L*5+base;liftR.scale.y=.001;liftR.userData.d=200+L*160;g.add(liftR);anim.push(liftR);
+if(baysG){const liftG=new THREE.Group();
+addBayRun(liftG,baysG,xG0,bw,depth,z0,matSteelG,true);
+liftG.position.y=L*5+base;liftG.scale.y=.001;liftG.userData.d=280+L*160;g.add(liftG);anim.push(liftG);}
+}
+addDecks(z,baysR,xR0,bw,depth,z0,base,topDeck,matDeck,matOut,500,'ready');
+if(baysG)addDecks(z,baysG,xG0,bw,depth,z0,base,topDeck,matDeckG,matOutG,560,'ghost');
+for(const d of z.decks){
+const dl=lbl(d+"′",'#0D5B61',work?12:10);
+dl.position.set(xRmid-18,d+base+1.8,frontZ+1);g.add(dl);
+if(d>=10){const rail=box(baysR*bw,.18,.18,matDeck);rail.position.set(xRmid,d+base+3.5,z0+depth+.2);g.add(rail)}
+}
+if(z.eave){const bl=lbl('BRACKETS ≤14″','#B57614',work?22:14);bl.position.set((xRmid+xG0)/2,z.decks[0]+base+0.9,frontZ+5);g.add(bl)}
+const gr=box(baysR*bw,.18,.18,matDeck);gr.position.set(xRmid,z.ov+base-1.2,z0+depth+.2);g.add(gr);
+if(work){
+const lr=lbl('READY 112 LF','#0D5B61',26);lr.position.set(xRmid,2.6+base,frontZ+5);g.add(lr);
+const lg=lbl('GETTING READY','#B57614',26);lg.position.set(xGmid,2.6+base,frontZ+5);g.add(lg);
+}
+if(z.out){
+for(let i=0;i<=baysR;i++){const x=xR0+i*bw;const o=box(.22,.22,Math.hypot(4,4.5),matOut);o.position.set(x,2,z0+depth+2.2);o.rotation.x=-Math.atan2(4,4.5);g.add(o);
+const pad=box(1.4,.2,1.4,matOut);pad.position.set(x,.1,z0+depth+4.4);g.add(pad)}
+for(let i=1;i<=baysG;i++){const x=xG0+i*bw;const o=box(.22,.22,Math.hypot(4,4.5),matOutG);o.position.set(x,2,z0+depth+2.2);o.rotation.x=-Math.atan2(4,4.5);g.add(o);
+const pad=box(1.4,.2,1.4,matOutG);pad.position.set(x,.1,z0+depth+4.4);g.add(pad)}
+}
+scene.add(g);
+const h=z.ov+base;
+if(work){ctl.target.set(0,h*.38,3);cam.position.set(-runW*.10,Math.max(h*2.4,52)+8,runW*.52+40);ctl.minDistance=50;ctl.maxDistance=520}
+else{ctl.target.set(0,h*.45,2);cam.position.set(-h*1.05-14,h*.62+6,h*1.3+20);ctl.minDistance=15;ctl.maxDistance=160}
+}
+const chips=document.getElementById('chips'),dots=document.getElementById('mapdots');
+const DOT=[['A',115,246],['B',115,52],['C',168,90],['D',115,140],['E',255,90],['F',320,110],['G',380,95],['H',320,80],['I',320,225],['J',388,190]];
+let cur=0,t0=performance.now();
+function sel(i){cur=i;const z=Z[i];
+[...chips.children].forEach((c,k)=>c.classList.toggle('on',k===i));
+[...dots.children].forEach((c,k)=>c.classList.toggle('on',k===i));
+hz.textContent=z.id;ht.textContent=z.ttl;hs.textContent=z.sub;
+hb.textContent=z.ratio+' — '+z.ft;hb.className='badge b-'+z.flag;
+const liveFr=Math.round(24*(z.ov/5));
+cs.innerHTML='<b>READY 112 LF</b> · <b>GETTING READY 112 LF</b> · <b>~'+liveFr+' FRAMES LIVE</b> · <span class="camp">'+(z.ov/5)+' bucks · '+z.ov+'′ overall · decks '+z.decks.map(d=>d+'′').join(' / ')+' · campus <b>'+z.lf.toLocaleString()+'</b> LF'+(z.est?' (est)':'')+' · <b>'+z.fr.toLocaleString()+'</b> frames</span>';
+cb.textContent=z.body;t0=performance.now();build(z);
+}
+Z.forEach((z,i)=>{const b=document.createElement('button');b.className='chip';b.role='tab';b.innerHTML=z.id+'<small>'+z.lf.toLocaleString()+' LF · '+(z.ov/5)+' lifts</small>';b.onclick=()=>sel(i);chips.appendChild(b);
+const d=DOT[i];const gp=document.createElementNS('http://www.w3.org/2000/svg','g');gp.setAttribute('class','zdot');gp.innerHTML='<circle cx="'+d[1]+'" cy="'+d[2]+'" r="11"/><text x="'+d[1]+'" y="'+d[2]+'">'+z.id+'</text>';gp.onclick=()=>{sel(i);document.querySelector('.viewer').scrollIntoView({behavior:'smooth'})};dots.appendChild(gp)});
+function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(canvas.width!==w*renderer.getPixelRatio()){renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('modes').addEventListener('click',e=>{
+const b=e.target.closest('button[data-m]');if(!b)return;
+viewMode=b.dataset.m;
+[...document.getElementById('modes').children].forEach(x=>x.classList.toggle('on',x===b));
+t0=performance.now();build(Z[cur]);
+});
+function loop(t){resize();const dt=t-t0;
+for(const m of anim){const p=Math.min(Math.max((dt-m.userData.d)/450,0),1),e=1-Math.pow(1-p,3);
+if(reduce){m.scale.y=1;m.scale.x=1}else if(m.userData.kind==='deck'){m.scale.x=.001+e*.999}else{m.scale.y=.001+e*.999}}
+ctl.update();renderer.render(scene,cam);requestAnimationFrame(loop)}
+sel(0);requestAnimationFrame(loop);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(g){const keep=t0;build(Z[cur]);t0=keep;}});
+</script>
+</body>
+</html>
